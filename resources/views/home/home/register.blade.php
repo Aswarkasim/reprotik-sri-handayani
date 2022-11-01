@@ -29,7 +29,7 @@
                    </div>
           @endif
   
-          <form action="/admin/auth/login" method="post">
+          <form action="/home/register" method="post">
             @csrf
             <div class="form-group">
                 <label for="" class="mb-1"><b>Nama</b></label>
@@ -53,7 +53,12 @@
 
             <div class="form-group mt-4">
                 <label for="" class="mb-1"><b>Angkatan</b></label>
-                <input type="text" name="angkatan" class="form-control  @error('angkatan') is-invalid @enderror" placeholder="Angkatan">
+                <select name="angkatan" class="form-control  @error('angkatan') is-invalid @enderror">
+                  <option value="">--Angkatan--</option>
+                  @for ($i = 2009; $i <= $current_year; $i++)
+                  <option value="{{ $i }}">{{ $i }}</option>
+                  @endfor
+                </select>
                 @error('angkatan')
                     <div class="invalid-feedback">
                     {{$message}}
@@ -83,7 +88,7 @@
 
             <div class="form-group mt-4">
                 <label for="" class="mb-1"><b>Konfirmasi Password</b></label>
-                <input type="re_password" name="re_password" class="form-control  @error('re_password') is-invalid @enderror" placeholder="Konfirmasi Password">
+                <input type="password" name="re_password" class="form-control  @error('re_password') is-invalid @enderror" placeholder="Konfirmasi Password">
                 @error('re_password')
                 <div class="invalid-feedback">
                   {{$message}}
@@ -94,7 +99,7 @@
             
   
             <div class="float-end">
-              <button type="submit" class="btn btn-primary mt-4"><i class="fas fa-sign-in-alt"></i> Login</button>
+              <button type="submit" class="btn btn-primary mt-4"><i class="fas fa-sign-in-alt"></i> Register</button>
             </div>
         </form>
   

@@ -1,9 +1,9 @@
 <style>
   .bg-img-banner{
-    background-image: url({{ '/img/pa.png' }});
+    background-image: url({{ '/img/project-banner.jpg' }});
     background-color:#3bafda;
     width:100%;
-    height:500px;
+    height:360px;
   }
 
   .outline-banner{
@@ -18,7 +18,7 @@
 <div class="bg-img-banner py-4">
   <div class="container">
     <div class="text-center py-5">
-      <h1 class="text-dark mt-4">REPROTIK :: Repository Project JTIK</h1>
+      <h1 class="text-light mt-4"><b>REPROTIK :: Repository Project JTIK</b></h1>
     </div>
 
     
@@ -59,8 +59,8 @@
           @csrf
           <div class="form-group">
           <label for="" class="mb-1"><b>Username</b></label>
-          <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror" placeholder="Username">
-          @error('name')
+          <input type="text" name="nim" class="form-control  @error('nim') is-invalid @enderror" placeholder="NIM">
+          @error('nim')
           <div class="invalid-feedback">
             {{$message}}
           </div>

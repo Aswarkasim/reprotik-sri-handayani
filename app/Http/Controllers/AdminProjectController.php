@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -18,11 +19,21 @@ class AdminProjectController extends Controller
         //
 
         $cari = request('cari');
+        $role = auth()->user()->role;
 
-        if ($cari) {
-            $project = Project::where('name', 'like', '%' . $cari . '%')->latest()->paginate(10);
+        if ($role == 'admin') {
+            if ($cari) {
+                $project = Project::where('name', 'like', '%' . $cari . '%')->latest()->paginate(10);
+            } else {
+                $project = Project::latest()->paginate(10);
+            }
         } else {
-            $project = Project::latest()->paginate(10);
+            $nim = auth()->user()->nim;
+            if ($cari) {
+                $project = Project::whereNim($nim)->where('name', 'like', '%' . $cari . '%')->latest()->paginate(10);
+            } else {
+                $project = Project::whereNim($nim)->latest()->paginate(10);
+            }
         }
 
         $data = [
@@ -44,6 +55,7 @@ class AdminProjectController extends Controller
 
         $data = [
             'title'   => 'Manajemen Project',
+            'kategori'  => Kategori::get(),
             'content' => 'admin/project/add'
         ];
         return view('admin/layouts/wrapper', $data);
@@ -59,9 +71,10 @@ class AdminProjectController extends Controller
     {
         //
         $data = $request->validate([
-            'nim'        => 'required',
+            'nim'           => 'required',
             'name'              => 'required',
             'desc'              => 'required',
+            'kategori_id'              => 'required',
             'file'              => 'required:mimes:zip,rar',
         ]);
 
@@ -75,6 +88,17 @@ class AdminProjectController extends Controller
             $data['file'] = $storage . $file_name;
         } else {
             $data['file'] = NULL;
+        }
+
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $cover_name = time() . "_" . $cover->getClientOriginalName();
+
+            $storage = 'uploads/images/';
+            $cover->move($storage, $cover_name);
+            $data['cover'] = $storage . $cover_name;
+        } else {
+            $data['cover'] = null;
         }
 
         Project::create($data);
@@ -111,6 +135,7 @@ class AdminProjectController extends Controller
         $data = [
             'title'   => 'Manajemen Project',
             'project'    => Project::find($id),
+            'kategori'  => Kategori::get(),
             'content' => 'admin/project/add'
         ];
         return view('admin/layouts/wrapper', $data);
@@ -133,6 +158,7 @@ class AdminProjectController extends Controller
             'nim'        => 'required',
             'name'              => 'required',
             'desc'              => 'required',
+            'kategori_id'              => 'required',
             'file'              => 'mimes:zip,rar',
         ]);
 
@@ -146,6 +172,18 @@ class AdminProjectController extends Controller
             $data['file'] = $storage . $file_name;
         } else {
             $data['file'] = $project->file;
+        }
+
+
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $cover_name = time() . "_" . $cover->getClientOriginalName();
+
+            $storage = 'uploads/images/';
+            $cover->move($storage, $cover_name);
+            $data['cover'] = $storage . $cover_name;
+        } else {
+            $data['cover'] = $project->cover;
         }
 
         $project->update($data);
@@ -166,6 +204,11 @@ class AdminProjectController extends Controller
         if ($project->file != '') {
             unlink($project->file);
         }
+
+        if ($project->cover != '') {
+            unlink($project->cover);
+        }
+
         $project->delete();
         Alert::success('Sukses', 'Project sukses dihapus');
         return redirect('/admin/project/');

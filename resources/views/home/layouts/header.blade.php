@@ -30,7 +30,7 @@
         </a>
        
         @else
-          <a href="#login" class="btn btn-primary btn-sm">
+          <a href="/#login" class="btn btn-primary btn-sm">
             <i class="fas fa-sign-in-alt"></i> Masuk
           </a>
         @endauth

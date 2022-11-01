@@ -62,7 +62,9 @@ Route::prefix('/admin')->group(function () {
 });
 
 Route::prefix('/home')->group(function () {
+    Route::get('/project/download', [HomeProjectController::class, 'download']);
+    Route::get('/project/show/{id}', [HomeProjectController::class, 'show']);
     Route::get('/project', [HomeProjectController::class, 'index']);
     Route::get('/register', [AdminAuthController::class, 'register']);
-    Route::post('/doRegister', [AdminAuthController::class, 'doRegsiter']);
+    Route::post('/register', [AdminAuthController::class, 'doRegister']);
 });

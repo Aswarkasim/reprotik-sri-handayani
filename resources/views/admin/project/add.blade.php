@@ -11,6 +11,8 @@
         @endif
           @csrf
 
+          @if (auth()->user()->role == 'admin')
+              
           <div class="form-group">
             <label for="">NIM</label>
             <input type="text" class="form-control  @error('nim') is-invalid @enderror"  name="nim"  value="{{isset($project) ? $project->nim : old('nim')}}" placeholder="NIM">
@@ -20,12 +22,32 @@
                 </div>
              @enderror
           </div>
+
+          @else
+          <input type="hidden" name="nim" value="{{ auth()->user()->nim }}">
+          @endif
+
           
 
           <div class="form-group">
             <label for="">Nama Project</label>
             <input type="text" class="form-control  @error('name') is-invalid @enderror"  name="name"  value="{{isset($project) ? $project->name : old('name')}}" placeholder="Nama Project">
              @error('name')
+                <div class="invalid-feedback">
+                  {{$message}}
+                </div>
+             @enderror
+          </div>
+
+          <div class="form-group">
+            <label for="">Kategori</label>
+            <select type="text" class="form-control  @error('kategori_id') is-invalid @enderror"  name="kategori_id">
+              <option value="">--Kategori--</option>
+              @foreach ($kategori as $item)
+                  <option value="{{ $item->id }}" {{ isset($project) ? $project->kategori_id == $item->id ? 'selected' :''  :'' }}>{{ $item->name }}</option>
+              @endforeach
+            </select>
+             @error('kategori_id')
                 <div class="invalid-feedback">
                   {{$message}}
                 </div>
@@ -56,6 +78,21 @@
             @if (isset($project))
             <a href="/admin/project/download?path={{ $project->file }}" class="mt-5">Download File</a>
                 {{-- <img src="/{{$project->file}}" width="100%" class="py-3" alt=""> --}}
+            @endif
+          </div>
+
+          <div class="form-group">
+            <label for="">Cover</label>
+            <input type="file" class="form-control  @error('cover') is-invalid @enderror"  name="cover"  value="{{isset($banner) ? $banner->cover : old('cover')}}" placeholder="cover">
+            {{-- <input type="file" class="form-control  @error('cover') is-invalid @enderror"  name="cover"  placeholder="cover"> --}}
+             @error('cover')
+                <div class="invalid-feedback">
+                  {{$message}}
+                </div>
+             @enderror
+
+            @if (isset($banner))
+                <img src="/{{$banner->cover}}" width="100%" class="py-3" alt="">
             @endif
           </div>
 
