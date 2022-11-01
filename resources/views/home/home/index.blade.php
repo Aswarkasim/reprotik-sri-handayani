@@ -58,8 +58,8 @@
         <form action="/admin/auth/login" method="post">
           @csrf
           <div class="form-group">
-          <label for="" class="mb-1"><b>Username</b></label>
-          <input type="text" name="nim" class="form-control  @error('nim') is-invalid @enderror" placeholder="NIM">
+          <label for="" class="mb-1"><b>Username atau NIM</b></label>
+          <input type="text" name="nim" class="form-control  @error('nim') is-invalid @enderror" placeholder="Username atau NIM">
           @error('nim')
           <div class="invalid-feedback">
             {{$message}}
