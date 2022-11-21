@@ -60,7 +60,7 @@
           <div class="form-group">
           <label for="" class="mb-1"><b>Username atau NIM</b></label>
           <input type="text" name="nim" class="form-control  @error('nim') is-invalid @enderror" placeholder="Username atau NIM">
-          @error('nim')
+          @error('nim')   
           <div class="invalid-feedback">
             {{$message}}
           </div>

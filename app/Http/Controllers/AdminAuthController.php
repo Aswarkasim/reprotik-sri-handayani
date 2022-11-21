@@ -45,7 +45,7 @@ class AdminAuthController extends Controller
     {
         $data = $request->validate([
             'name'      => 'required',
-            'nim'      => 'required|unique:users',
+            'nim'      => 'required|unique:users.nim',
             'angkatan'      => 'required',
             'nohp'      => 'required',
             'password'      => 'required',
