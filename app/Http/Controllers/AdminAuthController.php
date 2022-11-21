@@ -45,7 +45,7 @@ class AdminAuthController extends Controller
     {
         $data = $request->validate([
             'name'      => 'required',
-            'nim'      => 'required|unique:users.nim',
+            'nim'      => 'required|unique:users',
             'angkatan'      => 'required',
             'nohp'      => 'required',
             'password'      => 'required',
@@ -56,7 +56,6 @@ class AdminAuthController extends Controller
         $data['password'] = Hash::make($data['password']);
         User::create($data);
 
-        User::create($data);
         Alert::success('Sukses', 'Akun telah dibuat');
         return redirect('/');
     }
