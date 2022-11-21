@@ -77,6 +77,13 @@ class AdminVideoController extends Controller
     public function show($id)
     {
         //
+        $video = Video::find($id);
+        $data = [
+            'title'   => $video->name,
+            'video' => $video,
+            'content' => 'admin/video/show'
+        ];
+        return view('admin/layouts/wrapper', $data);
     }
 
     /**

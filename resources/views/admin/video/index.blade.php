@@ -68,7 +68,7 @@
 </div>
 
 @else
-    
+    @include('admin.video.index_user')
 @endif
 
 <!-- /.card-body -->
