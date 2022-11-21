@@ -46,6 +46,24 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="/admin/video" class="nav-link {{Request::is('admin/video*') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-film"></i>
+              <p>
+                Video
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/admin/panduan" class="nav-link {{Request::is('admin/panduan*') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-file"></i>
+              <p>
+                Panduan
+              </p>
+            </a>
+          </li>
+
           
            
 

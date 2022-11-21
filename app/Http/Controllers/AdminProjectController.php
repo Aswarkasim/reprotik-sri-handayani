@@ -117,7 +117,7 @@ class AdminProjectController extends Controller
         //
         $data = [
             'title'   => 'Manajemen Project',
-            'project'    => Project::find($id),
+            'project'    => Project::with(['user', 'kategori'])->find($id),
             'content' => 'admin/project/show'
         ];
         return view('admin.layouts.wrapper', $data);

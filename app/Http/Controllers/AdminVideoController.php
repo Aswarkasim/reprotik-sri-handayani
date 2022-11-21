@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class AdminUserController extends Controller
+class AdminVideoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,20 +19,15 @@ class AdminUserController extends Controller
         //
         $cari = request('cari');
 
-        $role = request('role');
-        $user = User::whereRole($role)->latest()->paginate(10);
-
         if ($cari) {
-            $user = User::where('name', 'like', '%' . $cari . '%')->whereRole($role)->latest()->paginate(10);
+            $video = Video::where('name', 'like', '%' . $cari . '%')->latest()->paginate(10);
         } else {
-            $user = User::whereRole($role)->latest()->paginate(10);
+            $video = Video::latest()->paginate(10);
         }
-
-
         $data = [
-            'title'   => 'Manajemen User',
-            'user' => $user,
-            'content' => 'admin/user/index'
+            'title'   => 'Manajemen Video',
+            'video' => $video,
+            'content' => 'admin/video/index'
         ];
         return view('admin/layouts/wrapper', $data);
     }
@@ -47,8 +41,8 @@ class AdminUserController extends Controller
     {
         //
         $data = [
-            'title'   => 'Tambah User',
-            'content' => 'admin/user/add'
+            'title'   => 'Manajemen Video Artikel',
+            'content' => 'admin/video/add'
         ];
         return view('admin/layouts/wrapper', $data);
     }
@@ -64,18 +58,14 @@ class AdminUserController extends Controller
         //
         // print_r($request);
         // die;
-        // Re Password harusnya tidak masuk
+        // dd($request);
         $data = $request->validate([
-            'name'          => 'required|min:3',
-            'nim'           => 'required|nim|min:4|unique:users',
-            'role'          => 'required',
-            'password'      => 'required|min:4',
-            're_password'   => 'required|same:password'
+            'name'              => 'required',
+            'link'              => 'required',
         ]);
-        $data['password'] = Hash::make($data['password']);
-        User::create($data);
-        Alert::success('Sukses', 'User telah ditambahkan');
-        return redirect('/admin/user/create');
+        Video::create($data);
+        Alert::success('Sukses', 'Video telah ditambahkan');
+        return redirect('/admin/video');
     }
 
     /**
@@ -98,11 +88,11 @@ class AdminUserController extends Controller
     public function edit($id)
     {
         //
-        $user = User::find($id);
+        $video = Video::find($id);
         $data = [
-            'title'   => 'Tambah User',
-            'user' => $user,
-            'content' => 'admin/user/add'
+            'title'   => 'Edit Video',
+            'video' => $video,
+            'content' => 'admin/video/add'
         ];
         return view('admin/layouts/wrapper', $data);
     }
@@ -117,22 +107,14 @@ class AdminUserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $user = User::find($id);
+        $video = Video::find($id);
         $data = $request->validate([
-            'name'          => 'required|min:3',
-            'username'         => 'required|username|min:4|unique:users,username,' . $user->id,
-            'role'          => 'required',
+            'name'              => 'required',
+            'link'              => 'required',
         ]);
-
-        if ($request->password == '') {
-            $data['password'] = $user->password;
-        } else {
-            $data['password'] = Hash::make($data['password']);
-        }
-
-        $user->update($data);
-        Alert::success('success', 'User telah diedit');
-        return redirect('/admin/user/' . $user->id . '/edit');
+        $video->update($data);
+        Alert::success('Sukses', 'Video telah diubah');
+        return redirect('/admin/video');
     }
 
     /**
@@ -144,8 +126,8 @@ class AdminUserController extends Controller
     public function destroy($id)
     {
         //
-        DB::table('users')->delete($id);
-        Alert::success('success', 'User telah dihapus');
-        return redirect('/admin/user');
+        DB::table('videos')->delete($id);
+        Alert::success('success', 'Kateogri telah dihapus');
+        return redirect('/admin/video');
     }
 }

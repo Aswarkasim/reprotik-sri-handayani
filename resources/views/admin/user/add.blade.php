@@ -21,9 +21,9 @@
           </div>
 
           <div class="form-group">
-            <label for="">Email</label>
-            <input type="email" class="form-control @error('email') is-invalid @enderror"  name="email" value="{{isset($user) ? $user->email : old('email')}}"   placeholder="example@example.com">
-             @error('email')
+            <label for="">Username</label>
+            <input type="text" class="form-control @error('username') is-invalid @enderror"  name="username" value="{{isset($user) ? $user->username : old('username')}}"   placeholder="Username">
+             @error('username')
                 <div class="invalid-feedback">
                   {{$message}}
                 </div>

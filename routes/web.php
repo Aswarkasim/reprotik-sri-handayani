@@ -9,7 +9,9 @@ use App\Http\Controllers\AdminBannerController;
 use App\Http\Controllers\AdminCategoryPostController;
 use App\Http\Controllers\AdminConfigurationController;
 use App\Http\Controllers\AdminKategoriController;
+use App\Http\Controllers\AdminPanduanController;
 use App\Http\Controllers\AdminProjectController;
+use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\HomeProjectController;
 
 /*
@@ -36,7 +38,7 @@ Route::prefix('/admin/auth')->group(function () {
 });
 
 
-Route::prefix('/admin')->group(function () {
+Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         $data = [
             'content' => 'admin/dashboard/index'
@@ -50,6 +52,8 @@ Route::prefix('/admin')->group(function () {
     Route::get('/project/download', [AdminProjectController::class, 'download']);
     Route::put('/konfigurasi/update', [AdminConfigurationController::class, 'update']);
 
+    Route::resource('/panduan', AdminPanduanController::class);
+    Route::resource('/video', AdminVideoController::class);
     Route::resource('/kategori', AdminKategoriController::class);
     Route::resource('/project', AdminProjectController::class);
     Route::resource('/banner', AdminBannerController::class);
