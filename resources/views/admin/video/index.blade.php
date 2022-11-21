@@ -1,3 +1,6 @@
+@if (auth()->user()->role == 'admin')
+    
+
 <div class="row">
   <div class="col-6">
 
@@ -63,6 +66,10 @@
 
   </div>
 </div>
+
+@else
+    
+@endif
 
 <!-- /.card-body -->
 

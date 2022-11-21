@@ -1,5 +1,10 @@
 <div class="alert alert-info">Selamat Datang {{auth()->user()->name}} di halaman {{auth()->user()->role}}</div>
 
+
+@if (auth()->user()->role == 'admin')
+    
+
+
 <div class="row mt-2">
     
     <div class="col-md-3">
@@ -49,4 +54,31 @@
         <!-- /.info-box -->
       </div>
 </div>
+
+
+@else
+
+
+<div class="row mt-2">
+    
+  <div class="col-md-3">
+    <div class="info-box">
+      <span class="info-box-icon bg-success elevation-1"><i class="fas fa-folder-plus"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Total Project</span>
+        <span class="info-box-number">
+          12
+          <small>Project</small>
+        </span>
+
+      </div>
+    </div>
+    <!-- /.info-box -->
+  </div>
+
+</div>
+
+
+
+@endif
   

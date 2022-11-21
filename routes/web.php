@@ -25,7 +25,7 @@ use App\Http\Controllers\HomeProjectController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
@@ -52,6 +52,7 @@ Route::prefix('/admin')->middleware('auth')->group(function () {
     Route::get('/project/download', [AdminProjectController::class, 'download']);
     Route::put('/konfigurasi/update', [AdminConfigurationController::class, 'update']);
 
+    Route::get('/panduan/download', [AdminPanduanController::class, 'download']);
     Route::resource('/panduan', AdminPanduanController::class);
     Route::resource('/video', AdminVideoController::class);
     Route::resource('/kategori', AdminKategoriController::class);

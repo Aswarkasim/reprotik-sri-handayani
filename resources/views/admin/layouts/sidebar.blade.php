@@ -35,17 +35,6 @@
             </a>
           </li>
 
-          @if (auth()->user()->role == 'admin')
-              
-          <li class="nav-item">
-            <a href="/admin/kategori" class="nav-link {{Request::is('admin/kategori*') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-list"></i>
-              <p>
-                Kategori
-              </p>
-            </a>
-          </li>
-
           <li class="nav-item">
             <a href="/admin/video" class="nav-link {{Request::is('admin/video*') ? 'active' : ''}}">
               <i class="nav-icon fas fa-film"></i>
@@ -63,6 +52,19 @@
               </p>
             </a>
           </li>
+
+          @if (auth()->user()->role == 'admin')
+              
+          <li class="nav-item">
+            <a href="/admin/kategori" class="nav-link {{Request::is('admin/kategori*') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Kategori
+              </p>
+            </a>
+          </li>
+
+
 
           
            

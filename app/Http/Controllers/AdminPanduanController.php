@@ -163,4 +163,12 @@ class AdminPanduanController extends Controller
         Alert::success('success', 'Panduan telah dihapus');
         return redirect('/admin/panduan');
     }
+
+    function download()
+    {
+        // $panduan = Panduan::find($id);
+        $path = request('path');
+        $name = request('name');
+        return response()->download($path);
+    }
 }
