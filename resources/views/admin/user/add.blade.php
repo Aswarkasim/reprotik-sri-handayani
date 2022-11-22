@@ -10,6 +10,10 @@
             @method('PUT')
         @endif
           @csrf
+
+          @if($errors->any())
+          {!! implode('', $errors->all('<div class="text text-danger">:message</div>')) !!}
+      @endif
           <div class="form-group">
             <label for="">Nama</label>
             <input type="text" class="form-control  @error('name') is-invalid @enderror"  name="name"  value="{{isset($user) ? $user->name : old('name')}}" placeholder="Nama">
