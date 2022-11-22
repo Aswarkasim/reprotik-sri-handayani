@@ -46,6 +46,7 @@
                 }
               } ?> >Admin</option>
 
+<option value="operator"
           <?php 
           if(isset($user)) {
             if($user->role == 'operator') {
@@ -55,7 +56,7 @@
             if(old('role') == 'operator') {
               echo 'selected';
             }
-          } ?> >Admin</option>
+          } ?> >Operator</option>
 
 
               <option value="user"
