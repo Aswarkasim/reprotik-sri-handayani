@@ -120,7 +120,7 @@ class AdminUserController extends Controller
         $user = User::find($id);
         $data = $request->validate([
             'name'          => 'required|min:3',
-            'username'         => 'required|username|min:4|unique:users,username,' . $user->id,
+            'nim'         => 'required|min:4|unique:users,nim,' . $user->id,
             'role'          => 'required',
         ]);
 

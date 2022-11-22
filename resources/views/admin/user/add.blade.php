@@ -26,8 +26,8 @@
 
           <div class="form-group">
             <label for="">Username</label>
-            <input type="text" class="form-control @error('username') is-invalid @enderror"  name="username" value="{{isset($user) ? $user->username : old('username')}}"   placeholder="Username">
-             @error('username')
+            <input type="text" class="form-control @error('nim') is-invalid @enderror"  name="nim" value="{{isset($user) ? $user->nim : old('nim')}}"   placeholder="Username">
+             @error('nim')
                 <div class="invalid-feedback">
                   {{$message}}
                 </div>
