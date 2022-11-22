@@ -45,6 +45,19 @@
                   echo 'selected';
                 }
               } ?> >Admin</option>
+
+          <?php 
+          if(isset($user)) {
+            if($user->role == 'operator') {
+              echo 'selected';
+              }
+          }else{
+            if(old('role') == 'operator') {
+              echo 'selected';
+            }
+          } ?> >Admin</option>
+
+
               <option value="user"
               <?php 
               if(isset($user)) {
