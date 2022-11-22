@@ -67,7 +67,7 @@ class AdminUserController extends Controller
         // Re Password harusnya tidak masuk
         $data = $request->validate([
             'name'          => 'required|min:3',
-            'nim'           => 'required|nim|min:4|unique:users',
+            'nim'           => 'required|min:4|unique:users',
             'role'          => 'required',
             'password'      => 'required|min:4',
             're_password'   => 'required|same:password'
