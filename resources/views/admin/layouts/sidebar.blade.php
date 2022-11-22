@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="/img/ktc_logo_line.png" alt="AdminLTE Logo" width="15px" class="" style="opacity: .8"> 
-      <span class="brand-text font-weight-light">REPROTIK:: ADMIN</span>
+      <span class="brand-text font-weight-light">REPROTIK</span>
     </a>
 
     <!-- Sidebar -->
@@ -53,7 +53,7 @@
             </a>
           </li>
 
-          @if (auth()->user()->role == 'admin')
+          @if (auth()->user()->role == 'admin' || auth()->user()->role == 'operator')
               
           <li class="nav-item">
             <a href="/admin/kategori" class="nav-link {{Request::is('admin/kategori*') ? 'active' : ''}}">
@@ -69,6 +69,11 @@
           
            
 
+          
+
+          @endif
+
+          @if (auth()->user()->role == 'admin')
           <li class="nav-item {{Request::is('admin/user*') ? 'menu-open' : ''}}">
             <a href="#" class="nav-link {{Request::is('admin/user*') ? 'active' : ''}}">
               <i class="nav-icon fas fa-users"></i>
@@ -92,7 +97,6 @@
               </li>
             </ul>
           </li>
-
           @endif
 
 

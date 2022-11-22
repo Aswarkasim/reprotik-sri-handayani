@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminBannerController;
 use App\Http\Controllers\AdminCategoryPostController;
 use App\Http\Controllers\AdminConfigurationController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminKategoriController;
 use App\Http\Controllers\AdminPanduanController;
 use App\Http\Controllers\AdminProjectController;
@@ -39,12 +40,7 @@ Route::prefix('/admin/auth')->group(function () {
 
 
 Route::prefix('/admin')->middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        $data = [
-            'content' => 'admin/dashboard/index'
-        ];
-        return view('admin/layouts/wrapper', $data);
-    });
+    Route::get('/dashboard', [AdminDashboardController::class, 'index']);
 
     Route::resource('/user', AdminUserController::class);
 

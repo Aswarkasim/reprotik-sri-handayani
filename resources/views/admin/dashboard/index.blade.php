@@ -1,7 +1,7 @@
 <div class="alert alert-info">Selamat Datang {{auth()->user()->name}} di halaman {{auth()->user()->role}}</div>
 
 
-@if (auth()->user()->role == 'admin')
+@if (auth()->user()->role == 'admin' || auth()->user()->role == 'operator' )
     
 
 
@@ -13,7 +13,7 @@
         <div class="info-box-content">
           <span class="info-box-text">Total Mahasiswa</span>
           <span class="info-box-number">
-            12
+            {{ $mahasiswa }}
             <small>Mahasiwa</small>
           </span>
   
@@ -29,7 +29,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Total Project</span>
             <span class="info-box-number">
-              12
+             {{  $project }}
               <small>Project</small>
             </span>
     
@@ -45,7 +45,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Total Kategori</span>
             <span class="info-box-number">
-              12
+              {{ $kategori }}
               <small>Kategori</small>
             </span>
     
@@ -67,7 +67,7 @@
       <div class="info-box-content">
         <span class="info-box-text">Total Project</span>
         <span class="info-box-number">
-          12
+          {{ $project }}
           <small>Project</small>
         </span>
 
